@@ -32,13 +32,13 @@ var proxy = "localhost";
 var publicDir = './public';
 
 // Raw Assets:
-var assetsDir = './app/assets';
+var assetsDir = './assets';
 
 // Bower Components:
 var bowerDir = assetsDir + '/bower_components';
 
 // Sass & Css directories and files:
-var sassDir = assetsDir + '/scss';
+var sassDir = assetsDir + '/sass';
 var sassFile = sassDir + '/style.scss';
 var cssOutput = publicDir + '/css';
 

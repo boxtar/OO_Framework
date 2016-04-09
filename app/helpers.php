@@ -12,5 +12,8 @@ function config(){
     return Config::getInstance();
 }
 
+function url($path=''){
+    return config()->get('app.url') . $path;
+}
 
 
