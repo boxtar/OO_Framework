@@ -4,6 +4,7 @@ namespace App\Core;
 
 
 use App\Core\Contracts\ViewComposer as ViewComposerContract;
+use App\Core\Exceptions\NoViewFoundException;
 
 class ViewComposer implements ViewComposerContract
 {
@@ -29,7 +30,7 @@ class ViewComposer implements ViewComposerContract
     public function getView($view, $data=[])
     {
         if (! file_exists( $view = $this->viewsDirectory . '/' . $view . '.php' ))
-            throw new \Exception('No view found: [' . $view . ']');
+            throw new NoViewFoundException('View not found: [' . $view . ']');
         require_once $view;
     }
 }

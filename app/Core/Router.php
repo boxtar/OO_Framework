@@ -2,8 +2,7 @@
 
 namespace App\Core;
 
-
-
+use App\Core\Exceptions\NoRouteFoundException;
 use App\Core\Contracts\Router as RouterContract;
 
 class Router implements RouterContract
@@ -67,7 +66,7 @@ class Router implements RouterContract
 
         // Match the request URI to a registered route
         if (! $this->matchRequestUriToRoute())
-            throw new \Exception('No registered route for URI ' . $this->getRoute());
+            throw new NoRouteFoundException('No route found for URI: ' . $this->getRoute());
 
         return $this;
     }
