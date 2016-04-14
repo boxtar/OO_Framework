@@ -11,7 +11,7 @@ return [
      |--------------------------------------------
      */
 
-    'appName'       => 'App',
+    'name'       => 'App',
 
     /*
      |--------------------------------------------
@@ -30,5 +30,25 @@ return [
      */
 
     'env'           => 'dev',
+
+    /*
+     |--------------------------------------------
+     | The title of your Application. This is
+     | output as the title of your page by
+     | default
+     |--------------------------------------------
+     */
+
+    'title'         => 'App',
+
+    /*
+     |--------------------------------------------
+     | The description for your Application. This
+     | is output as the description meta tag of
+     | your app by default
+     |--------------------------------------------
+     */
+
+    'description'   => '',
 
 ];

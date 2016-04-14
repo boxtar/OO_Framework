@@ -37,30 +37,44 @@ class App{
 
     /*
      |----------------------------------------------
+     | The name of the controller. Provided by
+     | the Router
      |----------------------------------------------
      */
     protected $controller;
 
     /*
      |----------------------------------------------
+     | The name of the action to call. Provided by
+     | the Router
      |----------------------------------------------
      */
     protected $action;
 
     /*
      |----------------------------------------------
+     | Parameters, if any, to pass into action.
+     | They are extracted from route by Router
      |----------------------------------------------
      */
+    protected $params;
+
+
+
+    /* Constructor */
     public function __construct(Router $router, ViewComposer $viewComposer)
     {
-        $this->controllersNamespace = '\\'. config()->get('app.appName') . '\\Controllers\\';
+        $this->controllersNamespace = '\\'. config()->get('app.name') . '\\Controllers\\';
         $this->router = $router;
         $this->viewComposer = $viewComposer;
     }
 
 
-    protected $params;
-
+    /**
+     * This function is what kicks off the app
+     *
+     * @return bool|mixed
+     */
     public function start()
     {
         try{
@@ -91,6 +105,14 @@ class App{
         return true;
     }
 
+
+    /**
+     * Creates an instance of the Controller required to handle
+     * the request
+     *
+     * @return $this
+     * @throws NoControllerFoundException
+     */
     protected function setupController()
     {
         $controllerName = $this->router->getControllerName();
@@ -105,6 +127,14 @@ class App{
         return $this;
     }
 
+
+    /**
+     * Sets the action within the Controller that is to be called
+     * to handle the request
+     *
+     * @return $this
+     * @throws NoActionFoundException
+     */
     protected function setupAction()
     {
         if (! method_exists( $this->controller, $action = $this->router->getActionName() ) )
@@ -115,6 +145,12 @@ class App{
         return $this;
     }
 
+    /**
+     * Fetch any parameters within the route to pass into
+     * the action
+     *
+     * @return $this
+     */
     protected function setupParametersForAction()
     {
         $this->params = ( $params = $this->router->getRouteParameters() ) ? $params : [];
@@ -122,19 +158,15 @@ class App{
         return $this;
     }
 
+    /**
+     * Returns Controller name with namespace prepended
+     *
+     * @param $controller
+     * @return string
+     */
     protected function getFullControllerName($controller)
     {
         return $this->controllersNamespace . $controller;
-    }
-
-
-    /**
-     * @param Controller $controller
-     * @internal param $ \Yaldi\Controllers\Contracts\Controller $
-     */
-    public function setController(Controller $controller)
-    {
-        $this->controller = $controller;
     }
 
     /**
@@ -144,7 +176,7 @@ class App{
      *
      * @param $e
      */
-    protected function handleNoRouteException($e)
+    protected function handleNoRouteException(\Exception $e)
     {
         try {
             http_response_code(404);
@@ -168,7 +200,7 @@ class App{
      *
      * @param $e
      */
-    protected function handleServerException($e)
+    protected function handleServerException(\Exception $e)
     {
         try {
             http_response_code(500);
@@ -182,5 +214,4 @@ class App{
             die();
         }
     }
-
 }

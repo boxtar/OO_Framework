@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title><?php echo config()->get('app.appName') ?></title>
-    <meta name="description" content="">
+    <title><?php echo config()->get('app.title') ?></title>
+    <meta name="description" content="<?php echo config()->get('app.description') ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
